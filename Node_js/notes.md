@@ -155,3 +155,68 @@ console.log(qryParams.firstName); //returns Clark
 - Local install place packages in the current project directory, making them accessible only to tha project.
 - Global installs make the packages available to all applications on the machin but should be used carefully to avoid conflict.
 
+### Asynchronous i/o and callback function
+
+- **Asynchronous Network Operations**: in Node.js are non-blocking, meaning they return immediately without waiting for the operation to complete. This approach prevents wasting the application to continue running while waiting for network response.
+
+### Callback function and HTTP request
+
+- When making an HTTP request, Node.js immediately returns a result indicating the request was sent, not the response. A callback function is defined to handle the HTTP response once it arrives asynchronously from the remote server.
+
+### Handling HTTP Responses in Node.js modules
+
+- Custom Node.js modules can make HTTP requests and define callback functions to handle *data* and *end* events on the response. These callbacks process incoming data chunks and finalize the response handling , such as logging the response body.
+
+## Callback Functions
+
+- Callback Function Basics
+
+    Node.js uses callback functions extensively to handle asynchronous operations, passing an error object as the first parameter.
+    The callback function checks if an error exists; if so, it handles the error and cleans up resources; otherwise, it processes the successful result.
+
+- Error Handling and Passing Results
+
+    Callback functions pass error objects back to the main application to handle failures.
+    When no error occurs, the callback is called with null as the first parameter and the result as the second.
+
+- Linking Callbacks Between Modules and Applications
+
+    Node.js modules make HTTP requests and define callback handlers for the HTTP response.
+    To pass results from the module to the main application, one callback function calls another callback function provided by the main application.
+
+- Example of Callback Usage
+
+    The main application calls a module function and passes an anonymous callback to process results.
+    The module calls http.request and, upon receiving the HTTP response, invokes the callback function that in turn calls the main application's callback with the result.
+
+## Callback Issues
+
+- Nested callback and callback hell
+    Nested callback occur when multiple asynchronous tasks depends on each other and must be executed sequentially.
+    This creates a callback hell or pyramid of doom structure, which reduces code readability and maintainability.
+- Inversion of control issue
+    IoC happens when the execution flow is controlled by third party code rather than you own.
+    This can lead to difficulties in handling errors, timing issues, and unexpected behavior, requiring extra code to manage these risks.
+- Mitigating call back problems
+    Strategies to reduce callback hell and IoC issues include writing clear comments, breaking functions into smaller parts, and
+    using modern js features like promises and async/await.
+
+### Definition and states of Promises
+
+- A promise is an object returned by an asynchronous method that represents the *eventual completion or failure* of an operation
+- Promises have three states: *pending(initial state), resolved(operation resolved successfully) and rejected(operation failed).
+- Usages:
+    for handling time-consuming operations like API request and I/O operations.
+
+### Handling HTTP Requests with Promises
+
+- HTTP request can be blocking if done synchronously; Node.js packages like axios wrap HTTP requests in promises.
+- The axios promise starts in a pending state, then resolves with a response or rejects with an error, handled using 'then' for success and 'catch' for errors.
+
+### JSON
+
+- Is the standard format for API data exchange and represents native js objects.
+- json consists attribute-value pair
+- json.parse() to convert json string into a js objects.
+- json.stringify() to convert js object to json objects.
+
